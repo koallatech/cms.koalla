@@ -1,40 +1,45 @@
+/* assets/css/global.css */
+
 :root {
-    --bg-color: #f4f6f9;
-    --text-color: #333;
-    --sidebar-bg: #ffffff;
+    /* Cores atualizadas para um visual mais moderno (suave/flat) */
+    --primary: #2563EB; /* Azul vibrante e profissional */
+    --primary-light: #eff6ff; /* Fundo suave para estados ativos */
+    --secondary: #6B7280;
+    
+    /* Fundo */
+    --bg-color: #f8fafc; /* Branco muito suave */
+    --sidebar-bg: #ffffff; 
     --topbar-bg: #ffffff;
-    --primary: #4f46e5;
+    
+    /* Texto e Bordas */
+    --text-color: #1f2937;
+    --border-color: #e5e7eb;
+    
+    /* Feedback */
     --danger: #ef4444;
     --success: #10b981;
+    
+    font-family: 'Inter', sans-serif; /* Assumindo uma fonte limpa moderna */
 }
 
 [data-theme="dark"] {
-    --bg-color: #1f2937;
+    --primary: #60a5fa; /* Azul mais claro para contraste no escuro */
+    --primary-light: #1e40af;
+    
+    --bg-color: #111827; /* Preto/Azul escuro */
+    --sidebar-bg: #1f2937; /* Um tom mais claro que o fundo para contraste */
+    --topbar-bg: #1f2937;
+    
     --text-color: #f3f4f6;
-    --sidebar-bg: #111827;
-    --topbar-bg: #111827;
+    --border-color: #374151;
 }
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family);
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background 0.3s;
 }
 
-/* Toast Styles */
-.toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 25px;
-    border-radius: 8px;
-    color: white;
-    transform: translateY(100px);
-    transition: transform 0.3s;
-    z-index: 9999;
-}
-.toast.success { background-color: var(--success); }
-.toast.error { background-color: var(--danger); }
-.toast.show { transform: translateY(0); }
+/* ... Outros estilos globais como Toast ... */

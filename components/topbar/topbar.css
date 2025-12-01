@@ -1,50 +1,23 @@
+/* components/topbar/topbar.css */
+
 #topbar-container {
     height: 64px;
     background-color: var(--topbar-bg);
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    position: sticky; /* Cola no topo ao rolar a página interna */
-    top: 0;
-    z-index: 30;
-    transition: background-color 0.3s, border-color 0.3s;
+    border-bottom: 1px solid var(--border-color); /* Borda fina e suave */
+    padding: 0 30px; /* Mais espaço nas laterais */
+    /* ... o restante do layout flex ... */
 }
 
-[data-theme="dark"] #topbar-container {
-    border-bottom-color: #374151;
-}
-
-/* Área esquerda (Botão Menu + Título da página atual se quiser) */
-.topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-/* Área direita (Usuário, Tema, Logout) */
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-/* Botões de ícone (Menu, Tema) */
 .icon-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-    font-size: 1.2rem; /* Tamanho do ícone texto/emoji */
+    padding: 10px; /* Maior área de clique */
+    font-size: 1.4rem; 
 }
 
 .icon-btn:hover {
-    background-color: var(--bg-color);
+    background-color: var(--primary-light);
+}
+
+.page-title {
+    font-size: 1.2rem;
+    font-weight: 600;
 }
