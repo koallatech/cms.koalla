@@ -36,20 +36,52 @@ function initTheme() {
     }
 }
 
-/* --- Sidebar e Responsividade --- */
+/* --- Sidebar e Responsividade (ATUALIZADO PARA MINIMIZAÇÃO) --- */
 function initSidebar() {
-    const toggleBtn = document.getElementById('sidebar-toggle');
+    const mobileToggleBtn = document.getElementById('sidebar-toggle');
+    const desktopToggleBtn = document.getElementById('desktop-sidebar-toggle'); // Novo botão
     const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const topbar = document.querySelector('.topbar');
     const overlay = document.getElementById('sidebar-overlay');
     
-    if (toggleBtn && sidebar && overlay) {
-        // Abrir Sidebar
-        toggleBtn.addEventListener('click', () => {
+    if (!sidebar || !mainContent || !topbar) return;
+
+    // 1. CARREGA E APLICA O ESTADO SALVO (DESKTOP)
+    const isMinimized = localStorage.getItem('koalla_sidebar_minimized') === 'true';
+    if (isMinimized) {
+        sidebar.classList.add('minimized');
+        mainContent.classList.add('sidebar-minimized');
+        topbar.classList.add('sidebar-minimized');
+    }
+
+    // 2. FUNÇÃO DE TOGGLE (DESKTOP)
+    function toggleMinimization() {
+        // Alterna a classe na Sidebar e salva o novo estado
+        const isCurrentlyMinimized = sidebar.classList.toggle('minimized');
+        
+        // Alterna a classe no Main Content e Topbar para ajustar a margem/largura
+        mainContent.classList.toggle('sidebar-minimized');
+        topbar.classList.toggle('sidebar-minimized');
+        
+        // Salva o estado no LocalStorage
+        localStorage.setItem('koalla_sidebar_minimized', isCurrentlyMinimized);
+    }
+    
+    // Listener do botão de minimização (Desktop)
+    if (desktopToggleBtn) {
+        desktopToggleBtn.addEventListener('click', toggleMinimization);
+    }
+
+    // 3. LÓGICA MOBILE (continua a mesma)
+    if (mobileToggleBtn && overlay) {
+        // Abrir Sidebar (Mobile)
+        mobileToggleBtn.addEventListener('click', () => {
             sidebar.classList.add('active');
             overlay.classList.add('active');
         });
 
-        // Fechar ao clicar fora (Overlay)
+        // Fechar ao clicar fora (Overlay Mobile)
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
