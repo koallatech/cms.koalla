@@ -1,29 +1,81 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pandda - Dashboard</title>
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="dashboard.css">
-    
-    <link rel="stylesheet" href="components/sidebar/sidebar.css">
-    <link rel="stylesheet" href="components/topbar/topbar.css">
+    <title>Dashboard - Koalla IPTV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="app-wrapper">
-        <div id="sidebar-container"></div>
-        
-        <div class="main-content">
-            <div id="topbar-container"></div>
-            
-            <div id="content-area">
-                <h2>Bem-vindo ao Pandda</h2>
-                <p>Selecione uma opção no menu.</p>
+    
+    <div class="overlay" id="sidebar-overlay"></div>
+
+    <div class="wrapper">
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-koala"></i> &nbsp; Koalla
             </div>
+            <ul class="menu">
+                <li><a href="dashboard.html" class="menu-item active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="clientes.html" class="menu-item"><i class="fas fa-users"></i> Clientes</a></li>
+                <li><a href="servidores.html" class="menu-item"><i class="fas fa-server"></i> Servidores</a></li>
+                <li><a href="aplicativos.html" class="menu-item"><i class="fas fa-mobile-alt"></i> Aplicativos</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header class="topbar">
+                <div style="display: flex; align-items: center;">
+                    <div class="toggle-btn" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <h3 style="margin-left: 10px;">Dashboard</h3>
+                </div>
+
+                <div class="user-area">
+                    <span class="admin-info" id="admin-name">Carregando...</span>
+                    <div class="theme-toggle" id="theme-toggle-btn">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <a href="#" onclick="logout()" title="Sair"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </header>
+
+            <main class="content">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h4>Ativos</h4>
+                        <h2 style="color: var(--primary-color);">1,204</h2>
+                        <small>Clientes Online</small>
+                    </div>
+                    <div class="card">
+                        <h4>Faturamento</h4>
+                        <h2 style="color: #00cec9;">R$ 45k</h2>
+                        <small>Este mês</small>
+                    </div>
+                    <div class="card">
+                        <h4>Servidores</h4>
+                        <h2 style="color: #ff7675;">4</h2>
+                        <small>1 com alerta</small>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px; height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                    [Aqui entraria um gráfico Chart.js integrado futuramente]
+                </div>
+            </main>
         </div>
     </div>
 
-    <script type="module" src="dashboard.js"></script>
+    <div id="toast" class="toast"><span id="toast-msg"></span></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('koalla_user');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
