@@ -73,21 +73,35 @@ function showToast(message, type = 'info') {
     }
 }
 
-/* --- Simulação de Auth --- */
+/* --- Simulação de Auth (Corrigido para evitar Loop) --- */
 function checkAuth() {
-    // Verificação simples. No futuro, validar token do Supabase
     const path = window.location.pathname;
-    const isLoginPage = path.includes('login.html');
     const user = localStorage.getItem('koalla_user');
 
+    // CORREÇÃO: Verificamos apenas a palavra 'login'
+    // Isso resolve o problema do Cloudflare remover o '.html' da URL
+    const isLoginPage = path.includes('login');
+
+    // Cenário 1: Usuário NÃO logado tentando acessar páginas internas
     if (!user && !isLoginPage) {
+        // Salva a localização atual para redirecionar de volta no futuro (opcional)
         window.location.href = 'login.html';
-    } else if (user && isLoginPage) {
+    } 
+    
+    // Cenário 2: Usuário JÁ logado tentando acessar a tela de login
+    if (user && isLoginPage) {
         window.location.href = 'dashboard.html';
     }
     
+    // Atualiza nome do admin na Topbar se o usuário existir
     if(user && !isLoginPage) {
         const adminNameEl = document.getElementById('admin-name');
-        if(adminNameEl) adminNameEl.innerText = JSON.parse(user).name;
+        if(adminNameEl) {
+            try {
+                adminNameEl.innerText = JSON.parse(user).name;
+            } catch (e) {
+                console.error("Erro ao ler dados do usuário", e);
+            }
+        }
     }
 }
