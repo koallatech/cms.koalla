@@ -12,28 +12,12 @@
     <div class="overlay" id="sidebar-overlay"></div>
 
     <div class="wrapper">
-        <nav class="sidebar">
-            <div class="brand"><i class="fas fa-koala"></i> &nbsp; Koalla</div>
-            <ul class="menu">
-                <li><a href="dashboard.html" class="menu-item"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="clientes.html" class="menu-item active"><i class="fas fa-users"></i> Clientes</a></li>
-                <li><a href="servidores.html" class="menu-item"><i class="fas fa-server"></i> Servidores</a></li>
-                <li><a href="aplicativos.html" class="menu-item"><i class="fas fa-mobile-alt"></i> Aplicativos</a></li>
-            </ul>
-        </nav>
+       <div id="sidebar-container">
+    </div>
 
         <div class="main-content">
-            <header class="topbar">
-                <div style="display: flex; align-items: center;">
-                    <div class="toggle-btn" id="sidebar-toggle"><i class="fas fa-bars"></i></div>
-                    <h3 style="margin-left: 10px;">Gestão de Clientes</h3>
-                </div>
-                <div class="user-area">
-    <span class="admin-info" id="admin-name">Admin</span>
-    <div class="theme-toggle" id="theme-toggle-btn"><i class="fas fa-moon"></i></div>
-    <a href="#" onclick="logout()" title="Sair"><i class="fas fa-sign-out-alt"></i></a>
-</div>
-            </header>
+           <div id="topbar-container">
+    </div>
 
             <main class="content">
                 <div class="card glass-modal">
@@ -89,8 +73,17 @@
         </div>
     </div>
 
-    <div id="toast" class="toast"><span id="toast-msg"></span></div>
+   <div id="toast" class="toast"><span id="toast-msg"></span></div>
 
     <script src="js/main.js"></script>
-    <script src="js/clientes.js"></script> </body>
+    <script src="js/include.js"></script> <script src="js/clientes.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // A Topbar agora será carregada aqui!
+            includeComponent('topbar-container', 'components/topbar.html');
+            // Nota: Você pode fazer o mesmo para a sidebar!
+        });
+    </script>
+</body>
 </html>

@@ -136,4 +136,42 @@ function checkAuth() {
             }
         }
     }
+
+}
+
+/* --- Configuração Global e Mock Data --- */
+// ... (código existente) ...
+
+document.addEventListener('DOMContentLoaded', () => {
+    // initTheme() e initSidebar() serão chamados DENTRO do include.js agora.
+    checkAuth();
+    
+    // NOVO: Adiciona o listener para ativar o menu quando o DOM estiver pronto
+    setActiveMenu(); 
+});
+
+// ... (código existente) ...
+
+
+/* --- NOVO: Função para marcar o item ativo na Sidebar --- */
+function setActiveMenu() {
+    // 1. Pega o nome do arquivo atual (ex: 'clientes')
+    const path = window.location.pathname;
+    let pageName = path.substring(path.lastIndexOf('/') + 1).split('.')[0];
+    
+    // Caso especial para a raiz (index.html)
+    if (pageName === '' || pageName === 'index') {
+        pageName = 'dashboard';
+    }
+
+    // 2. Itera sobre todos os links do menu
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.classList.remove('active'); // Remove a classe de todos primeiro
+        
+        // 3. Compara o atributo 'data-page' com o nome da página atual
+        if (item.getAttribute('data-page') === pageName) {
+            item.classList.add('active'); // Adiciona a classe no item correspondente
+        }
+    });
 }
