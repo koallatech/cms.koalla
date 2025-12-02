@@ -151,4 +151,83 @@ tr:hover { background-color: rgba(0,0,0,0.02); }
         display: none;
     }
     .overlay.active { display: block; }
+
+    /* --- Sidebar Minimizable (Desktop) --- */
+
+:root {
+    /* ADICIONE ESTA NOVA VARIAVEL */
+    --sidebar-min-width: 80px; 
+    /* Manter o restante das variáveis de tema */
+}
+
+/* Modificação nos TRANSITIONS (adicionar 'width') */
+.sidebar {
+    /* ... (manter o restante dos estilos) ... */
+    transition: transform 0.3s ease, width 0.3s ease; /* Adicionado width */
+}
+.main-content {
+    /* ... (manter o restante dos estilos) ... */
+    transition: margin 0.3s, width 0.3s; /* Adicionado width */
+}
+.topbar {
+    /* ... (manter o restante dos estilos) ... */
+    transition: width 0.3s; /* Adicionado width */
+}
+
+/* Novo estilo para o botão de minimização no desktop */
+.desktop-toggle-btn { 
+    display: none; /* Escondido por padrão */
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    margin-right: 15px;
+    color: var(--text-secondary);
+}
+
+/* Aparecer o botão apenas no desktop */
+@media (min-width: 769px) {
+    .desktop-toggle-btn { display: block; }
+    /* Garantir que o botão mobile esteja escondido no desktop */
+    .toggle-btn { display: none; }
+}
+
+/* ESTADO MINIMIZADO */
+.sidebar.minimized {
+    width: var(--sidebar-min-width);
+}
+
+/* Esconder texto do logo e dos links no estado minimizado */
+.sidebar.minimized .brand-text,
+.sidebar.minimized .menu-item-text {
+    display: none;
+}
+
+/* Centralizar ícones no estado minimizado */
+.sidebar.minimized .menu-item {
+    justify-content: center;
+    padding: 15px 0;
+}
+.sidebar.minimized .brand {
+    justify-content: center;
+}
+
+/* Ajustar o layout do conteúdo principal e topbar quando sidebar está minimizada */
+.main-content.sidebar-minimized {
+    margin-left: var(--sidebar-min-width);
+    width: calc(100% - var(--sidebar-min-width));
+}
+
+.topbar.sidebar-minimized {
+    width: calc(100% - var(--sidebar-min-width));
+}
+
+/* No mobile, garante que a largura e margem sejam resetadas para o estado mobile */
+@media (max-width: 768px) {
+    .sidebar { width: var(--sidebar-width); }
+    .main-content { margin-left: 0; }
+    .topbar { width: 100%; }
+    
+    /* Mostrar o botão mobile no mobile */
+    .toggle-btn { display: block; }
+    .desktop-toggle-btn { display: none; }
+}
 }
