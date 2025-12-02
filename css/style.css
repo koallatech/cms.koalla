@@ -1,3 +1,10 @@
+/*
+ * KOALLA IPTV - STYLE SHEET
+ * =======================================
+ * Este arquivo contém o design system, temas (light/dark)
+ * e o layout principal (Sidebar, Topbar, Responsividade).
+ */
+
 /* --- Variáveis de Tema (CSS Variables) --- */
 :root {
     /* Tema Claro (Padrão) */
@@ -10,8 +17,13 @@
     --accent-color: #00cec9;
     --border-color: #e1e1e1;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    
+    /* Variáveis de Layout */
     --topbar-height: 70px;
     --sidebar-width: 260px;
+    --sidebar-min-width: 80px; /* NOVO: Largura minimizada */
+    
+    /* Efeito Glass (Glassmorphism) */
     --glass-bg: rgba(255, 255, 255, 0.8);
     --glass-border: rgba(255, 255, 255, 0.3);
 }
@@ -26,18 +38,39 @@
     --primary-color: #a29bfe;
     --border-color: #3e4042;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    
+    /* Efeito Glass Escuro */
     --glass-bg: rgba(36, 37, 38, 0.85);
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 /* --- Reset & Base --- */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; transition: background 0.3s, color 0.3s; }
-body { background-color: var(--bg-body); color: var(--text-primary); overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Segoe UI', sans-serif; 
+    /* Transições para o tema e layout */
+    transition: background 0.3s, color 0.3s; 
+}
+body { 
+    background-color: var(--bg-body); 
+    color: var(--text-primary); 
+    overflow-x: hidden; 
+}
+a { 
+    text-decoration: none; 
+    color: inherit; 
+}
+ul { 
+    list-style: none; 
+}
 
 /* --- Layout Principal --- */
-.wrapper { display: flex; min-height: 100vh; }
+.wrapper { 
+    display: flex; 
+    min-height: 100vh; 
+}
 
 /* --- Sidebar --- */
 .sidebar {
@@ -51,17 +84,73 @@ ul { list-style: none; }
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease;
+    /* ATUALIZADO: Adiciona 'width' na transição para a minimização */
+    transition: transform 0.3s ease, width 0.3s ease; 
 }
 
-.brand { height: var(--topbar-height); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); border-bottom: 1px solid var(--border-color); }
-.menu { padding: 20px 0; flex: 1; }
-.menu-item { padding: 15px 25px; display: flex; align-items: center; cursor: pointer; color: var(--text-secondary); }
-.menu-item:hover, .menu-item.active { background: rgba(108, 92, 231, 0.1); color: var(--primary-color); border-right: 3px solid var(--primary-color); }
-.menu-item i { margin-right: 10px; width: 20px; text-align: center; }
+.brand { 
+    height: var(--topbar-height); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    color: var(--primary-color); 
+    border-bottom: 1px solid var(--border-color); 
+}
+.menu { 
+    padding: 20px 0; 
+    flex: 1; 
+}
+.menu-item { 
+    padding: 15px 25px; 
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+    color: var(--text-secondary); 
+}
+.menu-item:hover, .menu-item.active { 
+    background: rgba(108, 92, 231, 0.1); 
+    color: var(--primary-color); 
+    border-right: 3px solid var(--primary-color); 
+}
+.menu-item i { 
+    margin-right: 10px; 
+    width: 20px; 
+    text-align: center; 
+}
 
-/* --- Topbar --- */
-.main-content { margin-left: var(--sidebar-width); flex: 1; display: flex; flex-direction: column; width: calc(100% - var(--sidebar-width)); transition: margin 0.3s; }
+/* --- Sidebar Minimizable (Desktop State) --- */
+
+.sidebar.minimized {
+    width: var(--sidebar-min-width);
+}
+
+.sidebar.minimized .brand-text,
+.sidebar.minimized .menu-item-text {
+    display: none;
+}
+
+.sidebar.minimized .menu-item {
+    justify-content: center;
+    padding: 15px 0;
+}
+.sidebar.minimized .brand {
+    justify-content: center;
+}
+
+
+/* --- Main Content & Topbar Base --- */
+
+.main-content { 
+    margin-left: var(--sidebar-width); 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    width: calc(100% - var(--sidebar-width)); 
+    /* ATUALIZADO: Adiciona 'width' na transição */
+    transition: margin 0.3s, width 0.3s; 
+}
 .topbar {
     height: var(--topbar-height);
     background-color: var(--bg-card);
@@ -72,20 +161,55 @@ ul { list-style: none; }
     position: fixed;
     top: 0;
     right: 0;
-    width: calc(100% - var(--sidebar-width)); /* Ajuste para desktop */
+    width: calc(100% - var(--sidebar-width));
     z-index: 900;
     border-bottom: 1px solid var(--border-color);
     transition: width 0.3s;
 }
 
-.toggle-btn { display: none; font-size: 1.2rem; cursor: pointer; }
-.user-area { display: flex; align-items: center; gap: 15px; }
-.theme-toggle { cursor: pointer; font-size: 1.2rem; }
-.admin-info { font-weight: 500; font-size: 0.9rem; }
+/* Ajuste do Main Content e Topbar no estado minimizado */
+.main-content.sidebar-minimized {
+    margin-left: var(--sidebar-min-width);
+    width: calc(100% - var(--sidebar-min-width));
+}
+
+.topbar.sidebar-minimized {
+    width: calc(100% - var(--sidebar-min-width));
+}
+
+/* Botão de Toggle Mobile (Usado para abrir/fechar sidebar no mobile) */
+.toggle-btn { 
+    display: none; /* Escondido por padrão no desktop */
+    font-size: 1.2rem; 
+    cursor: pointer; 
+}
+
+/* Botão de Toggle Desktop (Usado para minimizar/restaurar sidebar no desktop) */
+.desktop-toggle-btn { 
+    display: none; /* Escondido por padrão no mobile */
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    margin-right: 15px;
+    color: var(--text-secondary);
+}
+
+.user-area { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
+.theme-toggle { 
+    cursor: pointer; 
+    font-size: 1.2rem; 
+}
+.admin-info { 
+    font-weight: 500; 
+    font-size: 0.9rem; 
+}
 
 /* --- Conteúdo Central --- */
 .content {
-    margin-top: var(--topbar-height); /* Evita sobreposição */
+    margin-top: var(--topbar-height); /* Evita sobreposição da topbar */
     padding: 30px;
     min-height: calc(100vh - var(--topbar-height));
 }
@@ -99,6 +223,7 @@ ul { list-style: none; }
     margin-bottom: 20px;
 }
 
+/* Efeito Glassmorphism (Transparência) */
 .glass-modal {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -114,120 +239,101 @@ ul { list-style: none; }
     font-weight: 600;
     background-color: var(--primary-color);
     color: #fff;
+    transition: opacity 0.2s;
 }
 .btn:hover { opacity: 0.9; }
 
 /* Tabela Moderna */
-.table-container { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-th { color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
-tr:hover { background-color: rgba(0,0,0,0.02); }
+.table-container { 
+    overflow-x: auto; 
+}
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 15px; 
+}
+th, td { 
+    padding: 15px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--border-color); 
+}
+th { 
+    color: var(--text-secondary); 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    text-transform: uppercase; 
+}
+tr:hover { 
+    background-color: rgba(0,0,0,0.02); 
+}
 
 /* Toast Notification */
 .toast {
-    position: fixed; bottom: 20px; right: 20px;
-    background: var(--bg-card); padding: 15px 25px;
-    border-radius: 8px; box-shadow: var(--shadow);
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px;
+    background: var(--bg-card); 
+    padding: 15px 25px;
+    border-radius: 8px; 
+    box-shadow: var(--shadow);
     border-left: 5px solid var(--primary-color);
-    transform: translateX(200%); transition: transform 0.4s ease; z-index: 2000;
+    transform: translateX(200%); 
+    transition: transform 0.4s ease; 
+    z-index: 2000;
 }
-.toast.show { transform: translateX(0); }
+.toast.show { 
+    transform: translateX(0); 
+}
 
-/* --- Responsividade (Mobile) --- */
+/* --- Responsividade (Mobile: abaixo de 768px) --- */
 @media (max-width: 768px) {
-    .sidebar { transform: translateX(-100%); } /* Esconde sidebar */
-    .sidebar.active { transform: translateX(0); } /* Mostra sidebar */
+    .sidebar { 
+        transform: translateX(-100%); /* Esconde sidebar mobile */
+        width: var(--sidebar-width); /* Volta à largura completa no mobile */
+    }
+    .sidebar.active { 
+        transform: translateX(0); /* Mostra sidebar mobile */
+    }
     
-    .main-content { margin-left: 0; width: 100%; }
-    .topbar { width: 100%; padding-left: 15px; }
+    .main-content { 
+        margin-left: 0; 
+        width: 100%; 
+    }
+    .topbar { 
+        width: 100%; 
+        padding-left: 15px; 
+    }
     
-    .toggle-btn { display: block; margin-right: 15px; }
+    .toggle-btn { 
+        display: block; /* Mostra o botão mobile */
+        margin-right: 15px; 
+    }
+    .desktop-toggle-btn { 
+        display: none; /* Esconde o botão desktop */
+    }
     
-    /* Overlay para clicar fora */
+    /* Overlay para clicar fora e fechar sidebar no mobile */
     .overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5); z-index: 950;
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        background: rgba(0,0,0,0.5); 
+        z-index: 950;
         display: none;
     }
-    .overlay.active { display: block; }
-
-    /* --- Sidebar Minimizable (Desktop) --- */
-
-:root {
-    /* ADICIONE ESTA NOVA VARIAVEL */
-    --sidebar-min-width: 80px; 
-    /* Manter o restante das variáveis de tema */
+    .overlay.active { 
+        display: block; 
+    }
 }
 
-/* Modificação nos TRANSITIONS (adicionar 'width') */
-.sidebar {
-    /* ... (manter o restante dos estilos) ... */
-    transition: transform 0.3s ease, width 0.3s ease; /* Adicionado width */
-}
-.main-content {
-    /* ... (manter o restante dos estilos) ... */
-    transition: margin 0.3s, width 0.3s; /* Adicionado width */
-}
-.topbar {
-    /* ... (manter o restante dos estilos) ... */
-    transition: width 0.3s; /* Adicionado width */
-}
-
-/* Novo estilo para o botão de minimização no desktop */
-.desktop-toggle-btn { 
-    display: none; /* Escondido por padrão */
-    font-size: 1.2rem; 
-    cursor: pointer; 
-    margin-right: 15px;
-    color: var(--text-secondary);
-}
-
-/* Aparecer o botão apenas no desktop */
+/* --- Responsividade (Desktop: acima de 768px) --- */
 @media (min-width: 769px) {
-    .desktop-toggle-btn { display: block; }
-    /* Garantir que o botão mobile esteja escondido no desktop */
-    .toggle-btn { display: none; }
-}
-
-/* ESTADO MINIMIZADO */
-.sidebar.minimized {
-    width: var(--sidebar-min-width);
-}
-
-/* Esconder texto do logo e dos links no estado minimizado */
-.sidebar.minimized .brand-text,
-.sidebar.minimized .menu-item-text {
-    display: none;
-}
-
-/* Centralizar ícones no estado minimizado */
-.sidebar.minimized .menu-item {
-    justify-content: center;
-    padding: 15px 0;
-}
-.sidebar.minimized .brand {
-    justify-content: center;
-}
-
-/* Ajustar o layout do conteúdo principal e topbar quando sidebar está minimizada */
-.main-content.sidebar-minimized {
-    margin-left: var(--sidebar-min-width);
-    width: calc(100% - var(--sidebar-min-width));
-}
-
-.topbar.sidebar-minimized {
-    width: calc(100% - var(--sidebar-min-width));
-}
-
-/* No mobile, garante que a largura e margem sejam resetadas para o estado mobile */
-@media (max-width: 768px) {
-    .sidebar { width: var(--sidebar-width); }
-    .main-content { margin-left: 0; }
-    .topbar { width: 100%; }
-    
-    /* Mostrar o botão mobile no mobile */
-    .toggle-btn { display: block; }
-    .desktop-toggle-btn { display: none; }
-}
+    .toggle-btn { 
+        display: none; /* Garante que o toggle mobile está escondido */
+    }
+    .desktop-toggle-btn {
+        display: block; /* Mostra o toggle desktop */
+    }
 }
