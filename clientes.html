@@ -12,12 +12,12 @@
     <div class="overlay" id="sidebar-overlay"></div>
 
     <div class="wrapper">
-       <div id="sidebar-container">
-    </div>
+        <div id="sidebar-container">
+            </div>
 
         <div class="main-content">
-           <div id="topbar-container">
-    </div>
+            <div id="topbar-container">
+                </div>
 
             <main class="content">
                 <div class="card glass-modal">
@@ -73,17 +73,24 @@
         </div>
     </div>
 
-   <div id="toast" class="toast"><span id="toast-msg"></span></div>
+    <div id="toast" class="toast"><span id="toast-msg"></span></div>
 
     <script src="js/main.js"></script>
-    <script src="js/include.js"></script> <script src="js/clientes.js"></script>
-    
+    <script src="js/include.js"></script>
+    <script src="js/clientes.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // A Topbar agora será carregada aqui!
+            // Chama o loader para injetar os componentes
+            includeComponent('sidebar-container', 'components/sidebar.html');
             includeComponent('topbar-container', 'components/topbar.html');
-            // Nota: Você pode fazer o mesmo para a sidebar!
         });
+
+        // Funções específicas do CRUD (que estão em clientes.js) devem ser globais.
+        // openModal, closeModal, e logout (abaixo)
+        function logout() {
+            localStorage.removeItem('koalla_user');
+            window.location.href = 'login.html';
+        }
     </script>
 </body>
 </html>

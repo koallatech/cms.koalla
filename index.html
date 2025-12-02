@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carregando Koalla IPTV...</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Estilos inline apenas para esta página de carregamento para ser ultra-rápida */
+        /* Estilos inline apenas para esta página de carregamento */
         :root {
             --bg-body: #f0f2f5;
             --primary-color: #6c5ce7;
         }
 
-        /* Detecção básica de preferência de tema do sistema operacional para evitar clarão */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-body: #18191a;
@@ -32,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* Animação do Logo/Loader */
         .loader-container {
             display: flex;
             flex-direction: column;
@@ -76,24 +75,14 @@
     </div>
 
     <script>
-        /**
-         * Lógica de Gateway:
-         * Verifica se existe um usuário salvo no LocalStorage.
-         * - Se SIM: Redireciona para o Dashboard.
-         * - Se NÃO: Redireciona para o Login.
-         */
+        // Lógica de Gateway que redireciona para Login ou Dashboard
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // Pequeno delay artificial (500ms) apenas para o usuário ver a marca
-            // e a transição não parecer um erro de piscada (flicker).
             setTimeout(() => {
                 const user = localStorage.getItem('koalla_user');
                 
                 if (user) {
-                    // Usuário logado -> Vai para o sistema
                     window.location.href = 'dashboard.html';
                 } else {
-                    // Usuário anônimo -> Vai para o login
                     window.location.href = 'login.html';
                 }
             }, 500);
